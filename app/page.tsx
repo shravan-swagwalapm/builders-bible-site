@@ -81,17 +81,25 @@ export default function Home() {
       </nav>
 
       {/* Hero — tall, commanding, lots of breathing room */}
-      <section className="relative pt-44 pb-32 px-6 overflow-hidden">
+      <section className="relative pt-48 pb-36 px-6 overflow-hidden">
         {/* Radial glow behind hero — visible ambient light */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse 70% 55% at 50% 25%, oklch(0.72 0.15 175 / 0.12), transparent 70%)",
+              "radial-gradient(ellipse 60% 50% at 50% 20%, oklch(0.72 0.15 175 / 0.10), transparent 65%), radial-gradient(ellipse 40% 30% at 60% 35%, oklch(0.60 0.16 240 / 0.06), transparent 50%)",
+          }}
+        />
+        {/* Subtle grid pattern overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.03]"
+          style={{
+            backgroundImage: "linear-gradient(var(--foreground) 1px, transparent 1px), linear-gradient(90deg, var(--foreground) 1px, transparent 1px)",
+            backgroundSize: "64px 64px",
           }}
         />
         <div className="relative max-w-3xl mx-auto text-center space-y-8">
-          <p className="text-sm font-mono tracking-widest uppercase text-[var(--accent)]">
+          <p className="text-xs font-mono tracking-[0.25em] uppercase text-[var(--accent)]">
             Free &amp; Open Source
           </p>
           <h1 className="font-heading font-bold tracking-tight leading-[1.05]" style={{ fontSize: "clamp(3rem, 8vw, 5.5rem)" }}>
@@ -112,10 +120,10 @@ export default function Home() {
             <span className="text-[var(--foreground)]">Everything you need</span> to
             understand software, AI, and how to build real things.
           </p>
-          <p className="text-[11px] font-mono tracking-[0.2em] uppercase text-[var(--muted-foreground)]/60">
+          <p className="text-xs font-mono tracking-[0.2em] uppercase text-[var(--muted-foreground)]/50">
             For PMs &middot; Founders &middot; Designers &middot; Career Changers &middot; Builders
           </p>
-          <div className="flex items-center justify-center gap-6 sm:gap-10 tabular-nums pt-2">
+          <div className="flex items-center justify-center gap-6 sm:gap-10 tabular-nums pt-4">
             {[
               { value: "34", label: "Chapters" },
               { value: "700+", label: "Pages" },
@@ -175,7 +183,7 @@ export default function Home() {
               <Link
                 key={path.title}
                 href={path.href}
-                className="path-card group flex flex-col p-7 rounded-2xl border border-[var(--border)] bg-[var(--elevation-1)] transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+                className="path-card group flex flex-col p-8 rounded-2xl border border-[var(--border)] bg-[var(--elevation-1)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl overflow-hidden"
                 style={{
                   "--card-accent": path.accent,
                   borderTopWidth: 2,
@@ -300,20 +308,20 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center space-y-5">
-          <p className="font-heading font-semibold text-sm text-[var(--foreground)]">
+      <footer className="py-24 px-6">
+        <div className="max-w-4xl mx-auto text-center space-y-6">
+          <p className="font-heading font-bold text-base text-[var(--foreground)]">
             The Builder&apos;s Bible
           </p>
-          <p className="text-sm text-[var(--muted-foreground)]">
+          <p className="text-sm text-[var(--muted-foreground)] leading-relaxed max-w-md mx-auto">
             Written by Shravan Tickoo with Claude &middot; Free &amp; open source &middot; First Edition, March 2026
           </p>
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-5 pt-2">
             <a
               href="https://github.com/shravan-swagwalapm/builders-bible"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+              className="text-xs text-[var(--muted-foreground)] hover:text-[var(--accent)] transition-colors"
             >
               GitHub &rarr;
             </a>
@@ -322,12 +330,12 @@ export default function Home() {
               href="https://creativecommons.org/licenses/by-sa/4.0/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+              className="text-xs text-[var(--muted-foreground)] hover:text-[var(--accent)] transition-colors"
             >
               CC BY-SA 4.0
             </a>
           </div>
-          <p className="text-xs text-[var(--muted-foreground)]/50">
+          <p className="text-[11px] text-[var(--muted-foreground)]/40 pt-4">
             &copy; {new Date().getFullYear()} Rethink Systems
           </p>
         </div>

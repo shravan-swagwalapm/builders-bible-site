@@ -113,7 +113,7 @@ export function SectionPaginator({
 
       {/* Section header bar */}
       {totalSections > 0 && (
-        <div className="sticky top-14 z-30 -mx-6 px-6 py-3 mb-8 backdrop-blur-md bg-[var(--background)]/80 border-b border-[var(--border)]">
+        <div className="sticky top-14 z-30 -mx-6 px-6 py-3.5 mb-8 backdrop-blur-xl bg-[var(--background)]/85 border-b border-[var(--border)] shadow-[0_1px_3px_0_oklch(0_0_0/0.1)]">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3 min-w-0">
               <button
@@ -231,7 +231,7 @@ export function SectionPaginator({
         <>
           {/* Section navigation (not on last section, not in show-all) */}
           {!showAll && currentSection < totalSections - 1 && (
-            <nav className="flex items-stretch gap-4 mt-12 pt-8 border-t border-[var(--border)]">
+            <nav className="flex items-stretch gap-4 mt-16 pt-10 border-t border-[var(--border)]">
               {currentSection > 0 ? (
                 <button
                   onClick={goPrev}
