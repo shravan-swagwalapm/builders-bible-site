@@ -62,13 +62,13 @@ export const mdxComponents: MDXComponents = {
   ),
   h2: (props) => (
     <h2
-      className="font-heading text-2xl sm:text-3xl font-semibold tracking-tight mt-10 mb-4 scroll-mt-20"
+      className="font-heading text-2xl sm:text-3xl font-semibold tracking-tight mt-14 mb-5 scroll-mt-20"
       {...props}
     />
   ),
   h3: (props) => (
     <h3
-      className="font-heading text-xl sm:text-2xl font-semibold mt-8 mb-3 scroll-mt-20"
+      className="font-heading text-xl sm:text-2xl font-semibold mt-10 mb-4 scroll-mt-20"
       {...props}
     />
   ),
@@ -81,7 +81,7 @@ export const mdxComponents: MDXComponents = {
 
   // Body
   p: (props) => (
-    <p className="leading-[1.8] mb-4 text-[var(--foreground)]/90" {...props} />
+    <p className="leading-[1.85] mb-5 text-[var(--foreground)]/90" {...props} />
   ),
   a: (props) => (
     <a
@@ -89,19 +89,21 @@ export const mdxComponents: MDXComponents = {
       {...props}
     />
   ),
-  ul: (props) => <ul className="list-disc pl-6 space-y-2 mb-4" {...props} />,
+  ul: (props) => <ul className="list-disc pl-6 space-y-2.5 mb-6" {...props} />,
   ol: (props) => (
-    <ol className="list-decimal pl-6 space-y-2 mb-4" {...props} />
+    <ol className="list-decimal pl-6 space-y-2.5 mb-6" {...props} />
   ),
-  li: (props) => <li className="leading-[1.7]" {...props} />,
+  li: (props) => <li className="leading-[1.75] text-[var(--foreground)]/90" {...props} />,
   blockquote: (props) => (
     <blockquote
-      className="border-l-2 border-[var(--accent)]/40 pl-4 italic text-[var(--muted-foreground)] my-4"
+      className="border-l-3 border-[var(--accent)]/30 pl-5 italic text-[var(--muted-foreground)] my-6 py-1"
       {...props}
     />
   ),
   hr: () => (
-    <hr className="border-[var(--border)] my-10" />
+    <div className="my-12">
+      <div className="h-px bg-gradient-to-r from-transparent via-[var(--border)] to-transparent" />
+    </div>
   ),
   code: (props) => {
     // Inline code (not inside pre)
@@ -111,7 +113,7 @@ export const mdxComponents: MDXComponents = {
     if (isBlock) return <code {...props} />;
     return (
       <code
-        className="font-mono text-[0.9em] bg-[var(--muted)] px-1.5 py-0.5 rounded"
+        className="font-mono text-[0.88em] bg-[var(--muted)] text-[var(--accent)] px-1.5 py-0.5 rounded border border-[var(--border)]"
         {...props}
       />
     );

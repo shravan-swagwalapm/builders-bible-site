@@ -89,8 +89,8 @@ export function ChapterSidebar({ currentSlug }: ChapterSidebarProps) {
                           href={`/chapter/${ch.slug}`}
                           className={`flex items-center gap-2 px-4 py-1.5 text-sm transition-colors ${
                             isCurrent
-                              ? "text-[var(--accent)] bg-[var(--sidebar-accent)] font-medium"
-                              : "text-[var(--sidebar-foreground)] hover:text-[var(--accent)] hover:bg-[var(--sidebar-accent)]/50"
+                              ? "text-[var(--accent)] bg-[var(--sidebar-accent)] font-medium border-l-2 border-[var(--accent)]"
+                              : "text-[var(--sidebar-foreground)] hover:text-[var(--accent)] hover:bg-[var(--sidebar-accent)]/50 border-l-2 border-transparent"
                           }`}
                         >
                           {/* Reading progress dot */}

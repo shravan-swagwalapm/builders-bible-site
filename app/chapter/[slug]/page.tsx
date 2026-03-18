@@ -41,7 +41,7 @@ export default async function ChapterPage({ params }: PageProps) {
   const { entry, content, prev, next } = chapter;
 
   return (
-    <article className="max-w-[72ch] mx-auto px-6 py-12 sm:py-16">
+    <article className="max-w-[72ch] mx-auto px-6 py-14 sm:py-20">
       {/* Chapter header */}
       {entry.chapterNumber && (
         <span className="chapter-number">{entry.chapterNumber}</span>
@@ -54,15 +54,15 @@ export default async function ChapterPage({ params }: PageProps) {
       <ChapterEndMarker slug={slug} />
 
       {/* Chapter navigation */}
-      <nav className="flex items-stretch gap-4 mt-16 pt-8 border-t border-[var(--border)]">
+      <nav className="flex items-stretch gap-4 mt-20 pt-10 border-t border-[var(--border)]">
         {prev ? (
           <Link
             href={`/chapter/${prev.slug}`}
-            className="flex-1 group flex items-center gap-3 p-4 rounded-lg border border-[var(--border)] hover:border-[var(--accent)]/40 transition-colors"
+            className="flex-1 group flex items-center gap-3 p-5 rounded-xl border border-[var(--border)] bg-[var(--elevation-1)] hover:border-[var(--accent)]/40 transition-all duration-200"
           >
             <ChevronLeft className="w-5 h-5 text-[var(--muted-foreground)] group-hover:text-[var(--accent)] transition-colors shrink-0" />
             <div className="min-w-0">
-              <div className="text-xs text-[var(--muted-foreground)]">
+              <div className="text-xs text-[var(--muted-foreground)] mb-0.5">
                 Previous
               </div>
               <div className="text-sm font-medium truncate">
@@ -78,10 +78,10 @@ export default async function ChapterPage({ params }: PageProps) {
         {next ? (
           <Link
             href={`/chapter/${next.slug}`}
-            className="flex-1 group flex items-center justify-end gap-3 p-4 rounded-lg border border-[var(--border)] hover:border-[var(--accent)]/40 transition-colors text-right"
+            className="flex-1 group flex items-center justify-end gap-3 p-5 rounded-xl border border-[var(--border)] bg-[var(--elevation-1)] hover:border-[var(--accent)]/40 transition-all duration-200 text-right"
           >
             <div className="min-w-0">
-              <div className="text-xs text-[var(--muted-foreground)]">
+              <div className="text-xs text-[var(--muted-foreground)] mb-0.5">
                 Next
               </div>
               <div className="text-sm font-medium truncate">
