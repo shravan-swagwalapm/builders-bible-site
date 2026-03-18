@@ -2,9 +2,18 @@
 
 import { useState, useEffect, useCallback, useRef, useId } from "react";
 import { ChevronLeft, ChevronRight, List } from "lucide-react";
+import Link from "next/link";
+
+interface ChapterLink {
+  slug: string;
+  title: string;
+  chapterNumber: string;
+}
 
 interface SectionPaginatorProps {
   children: React.ReactNode;
+  prevChapter?: ChapterLink | null;
+  nextChapter?: ChapterLink | null;
 }
 
 interface DomSection {
@@ -13,7 +22,11 @@ interface DomSection {
   element: HTMLElement;
 }
 
-export function SectionPaginator({ children }: SectionPaginatorProps) {
+export function SectionPaginator({
+  children,
+  prevChapter,
+  nextChapter,
+}: SectionPaginatorProps) {
   const [currentSection, setCurrentSection] = useState(0);
   const [showToc, setShowToc] = useState(false);
   const [showAll, setShowAll] = useState(false);
@@ -213,47 +226,97 @@ export function SectionPaginator({ children }: SectionPaginatorProps) {
       {/* Chapter content */}
       {children}
 
-      {/* Bottom section navigation */}
-      {!showAll && totalSections > 0 && (
-        <nav className="flex items-stretch gap-4 mt-12 pt-8 border-t border-[var(--border)]">
-          {currentSection > 0 ? (
-            <button
-              onClick={goPrev}
-              className="flex-1 group flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-[var(--elevation-1)] hover:border-[var(--accent)]/40 transition-all"
-            >
-              <ChevronLeft className="w-4 h-4 text-[var(--muted-foreground)] group-hover:text-[var(--accent)] transition-colors shrink-0" />
-              <div className="min-w-0 text-left">
-                <div className="text-xs text-[var(--muted-foreground)] mb-0.5">
-                  Previous Section
+      {/* Bottom navigation */}
+      {totalSections > 0 && (
+        <>
+          {/* Section navigation (not on last section, not in show-all) */}
+          {!showAll && currentSection < totalSections - 1 && (
+            <nav className="flex items-stretch gap-4 mt-12 pt-8 border-t border-[var(--border)]">
+              {currentSection > 0 ? (
+                <button
+                  onClick={goPrev}
+                  className="flex-1 group flex items-center gap-3 p-4 rounded-xl border border-[var(--border)] bg-[var(--elevation-1)] hover:border-[var(--accent)]/40 transition-all"
+                >
+                  <ChevronLeft className="w-4 h-4 text-[var(--muted-foreground)] group-hover:text-[var(--accent)] transition-colors shrink-0" />
+                  <div className="min-w-0 text-left">
+                    <div className="text-xs text-[var(--muted-foreground)] mb-0.5">
+                      Previous Section
+                    </div>
+                    <div className="text-sm font-medium truncate">
+                      {sections[currentSection - 1]?.title}
+                    </div>
+                  </div>
+                </button>
+              ) : (
+                <div className="flex-1" />
+              )}
+
+              <button
+                onClick={goNext}
+                className="flex-1 group flex items-center justify-end gap-3 p-4 rounded-xl border border-[var(--border)] bg-[var(--elevation-1)] hover:border-[var(--accent)]/40 transition-all text-right"
+              >
+                <div className="min-w-0">
+                  <div className="text-xs text-[var(--muted-foreground)] mb-0.5">
+                    Next Section
+                  </div>
+                  <div className="text-sm font-medium truncate">
+                    {sections[currentSection + 1]?.title}
+                  </div>
                 </div>
-                <div className="text-sm font-medium truncate">
-                  {sections[currentSection - 1]?.title}
-                </div>
-              </div>
-            </button>
-          ) : (
-            <div className="flex-1" />
+                <ChevronRight className="w-4 h-4 text-[var(--muted-foreground)] group-hover:text-[var(--accent)] transition-colors shrink-0" />
+              </button>
+            </nav>
           )}
 
-          {currentSection < totalSections - 1 ? (
-            <button
-              onClick={goNext}
-              className="flex-1 group flex items-center justify-end gap-3 p-4 rounded-xl border border-[var(--border)] bg-[var(--elevation-1)] hover:border-[var(--accent)]/40 transition-all text-right"
-            >
-              <div className="min-w-0">
-                <div className="text-xs text-[var(--muted-foreground)] mb-0.5">
-                  Next Section
-                </div>
-                <div className="text-sm font-medium truncate">
-                  {sections[currentSection + 1]?.title}
-                </div>
-              </div>
-              <ChevronRight className="w-4 h-4 text-[var(--muted-foreground)] group-hover:text-[var(--accent)] transition-colors shrink-0" />
-            </button>
-          ) : (
-            <div className="flex-1" />
+          {/* Chapter navigation (last section or show-all mode) */}
+          {(showAll || currentSection === totalSections - 1) && (
+            <nav className="flex items-stretch gap-4 mt-20 pt-10 border-t border-[var(--border)]">
+              {prevChapter ? (
+                <Link
+                  href={`/chapter/${prevChapter.slug}`}
+                  className="flex-1 group flex items-center gap-3 p-5 rounded-xl border border-[var(--border)] bg-[var(--elevation-1)] hover:border-[var(--accent)]/40 transition-all duration-200"
+                >
+                  <ChevronLeft className="w-5 h-5 text-[var(--muted-foreground)] group-hover:text-[var(--accent)] transition-colors shrink-0" />
+                  <div className="min-w-0">
+                    <div className="text-xs text-[var(--muted-foreground)] mb-0.5">
+                      Previous Chapter
+                    </div>
+                    <div className="text-sm font-medium truncate">
+                      {prevChapter.chapterNumber
+                        ? `${prevChapter.chapterNumber}: `
+                        : ""}
+                      {prevChapter.title}
+                    </div>
+                  </div>
+                </Link>
+              ) : (
+                <div className="flex-1" />
+              )}
+
+              {nextChapter ? (
+                <Link
+                  href={`/chapter/${nextChapter.slug}`}
+                  className="flex-1 group flex items-center justify-end gap-3 p-5 rounded-xl border border-[var(--border)] bg-[var(--elevation-1)] hover:border-[var(--accent)]/40 transition-all duration-200 text-right"
+                >
+                  <div className="min-w-0">
+                    <div className="text-xs text-[var(--muted-foreground)] mb-0.5">
+                      Next Chapter
+                    </div>
+                    <div className="text-sm font-medium truncate">
+                      {nextChapter.chapterNumber
+                        ? `${nextChapter.chapterNumber}: `
+                        : ""}
+                      {nextChapter.title}
+                    </div>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)] group-hover:text-[var(--accent)] transition-colors shrink-0" />
+                </Link>
+              ) : (
+                <div className="flex-1" />
+              )}
+            </nav>
           )}
-        </nav>
+        </>
       )}
     </div>
   );

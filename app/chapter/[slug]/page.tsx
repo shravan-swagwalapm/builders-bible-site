@@ -50,7 +50,10 @@ export default async function ChapterPage({ params }: PageProps) {
 
       {/* MDX content — paginated for long chapters */}
       {hasSections ? (
-        <SectionPaginator>
+        <SectionPaginator
+          prevChapter={prev}
+          nextChapter={next}
+        >
           <div className="prose-bb">{content}</div>
         </SectionPaginator>
       ) : (
@@ -60,7 +63,8 @@ export default async function ChapterPage({ params }: PageProps) {
       {/* Mark-as-read sentinel */}
       <ChapterEndMarker slug={slug} />
 
-      {/* Chapter navigation */}
+      {/* Chapter navigation — hidden when section paginator handles it */}
+      {!hasSections && (
       <nav className="flex items-stretch gap-4 mt-20 pt-10 border-t border-[var(--border)]">
         {prev ? (
           <Link
@@ -102,6 +106,7 @@ export default async function ChapterPage({ params }: PageProps) {
           <div className="flex-1" />
         )}
       </nav>
+      )}
     </article>
   );
 }
