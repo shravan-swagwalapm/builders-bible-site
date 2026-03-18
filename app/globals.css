@@ -344,3 +344,104 @@ body {
   text-decoration-color: var(--accent);
   text-underline-offset: 4px;
 }
+
+/* ── Typography Polish ───────────────────────── */
+
+/* Fluid heading scale */
+h1, h2, h3, h4 {
+  text-wrap: balance;
+}
+
+p, li {
+  text-wrap: pretty;
+  orphans: 2;
+  widows: 2;
+}
+
+/* Tabular nums for data */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Reduced Motion ──────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Smooth scroll ───────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Prose spacing inside ARIA boxes ─────────── */
+
+.aria-box p {
+  margin-bottom: 0.5rem;
+}
+.aria-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Book cover styling (from title-page.md) ─── */
+
+.book-cover {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.cover-badge {
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.cover-title {
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 1rem 0;
+}
+
+.cover-rule {
+  width: 4rem;
+  height: 2px;
+  background: var(--accent);
+  margin: 1.5rem auto;
+}
+
+.cover-subtitle {
+  font-size: 1.125rem;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+.cover-description {
+  max-width: 36ch;
+  margin: 1rem auto;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.cover-authors {
+  margin-top: 2rem;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+
+.cover-edition {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
