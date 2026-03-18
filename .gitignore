@@ -39,5 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-content/
-.next/
+# autoresearch
+scripts/autoresearch/screenshots/
+scripts/autoresearch/results.tsv
