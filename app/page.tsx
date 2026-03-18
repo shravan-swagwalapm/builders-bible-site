@@ -123,25 +123,20 @@ export default function Home() {
           <p className="text-xs font-mono tracking-[0.2em] uppercase text-[var(--muted-foreground)]/50">
             For PMs &middot; Founders &middot; Designers &middot; Career Changers &middot; Builders
           </p>
-          <div className="flex items-center justify-center gap-6 sm:gap-10 tabular-nums pt-4">
+          <div className="grid grid-cols-4 gap-4 sm:gap-8 tabular-nums pt-4 max-w-md mx-auto">
             {[
               { value: "34", label: "Chapters" },
               { value: "700+", label: "Pages" },
               { value: "4", label: "Projects" },
               { value: "198k", label: "Words" },
-            ].map((stat, i) => (
-              <div key={stat.label} className="text-center flex items-center gap-6 sm:gap-10">
-                <div>
-                  <div className="text-3xl sm:text-4xl font-heading font-bold text-[var(--foreground)]">
-                    {stat.value}
-                  </div>
-                  <div className="text-[10px] text-[var(--muted-foreground)] uppercase tracking-[0.15em]">
-                    {stat.label}
-                  </div>
+            ].map((stat) => (
+              <div key={stat.label} className="text-center">
+                <div className="text-2xl sm:text-4xl font-heading font-bold text-[var(--foreground)]">
+                  {stat.value}
                 </div>
-                {i < 3 && (
-                  <div className="w-px h-8 bg-[var(--border)]" />
-                )}
+                <div className="text-[10px] text-[var(--muted-foreground)] uppercase tracking-[0.15em]">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
