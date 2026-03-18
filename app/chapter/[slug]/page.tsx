@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { getChapterBySlug } from "@/lib/content/manifest";
+import { ChapterEndMarker } from "@/components/chapter-end-marker";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -48,6 +49,9 @@ export default async function ChapterPage({ params }: PageProps) {
 
       {/* MDX content */}
       <div className="prose-bb">{content}</div>
+
+      {/* Mark-as-read sentinel */}
+      <ChapterEndMarker slug={slug} />
 
       {/* Chapter navigation */}
       <nav className="flex items-stretch gap-4 mt-16 pt-8 border-t border-[var(--border)]">
