@@ -18,8 +18,11 @@ import {
 const CONTENT_DIR = path.join(process.cwd(), "content");
 
 function preprocessMarkdown(raw: string): string {
+  // Remove hardcoded chapter number spans (rendered by page.tsx from manifest)
+  let md = raw.replace(/<span class="chapter-number">.*?<\/span>\n?/g, "");
+
   // Remove {.chapter-title} and {.part-title} kramdown attributes
-  let md = raw.replace(/\{\.chapter-title\}/g, "");
+  md = md.replace(/\{\.chapter-title\}/g, "");
   md = md.replace(/\{\.part-title\}/g, "");
   md = md.replace(/\{\.part-subtitle\}/g, "");
 
