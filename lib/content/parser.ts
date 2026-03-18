@@ -7,6 +7,8 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeRaw from "rehype-raw";
 import rehypePrettyCode from "rehype-pretty-code";
 import { rehypeAriaBoxes } from "@/lib/remark/rehype-aria-boxes";
+import { rehypeSections } from "@/lib/remark/rehype-sections";
+import { rehypeDiagramBlocks } from "@/lib/remark/rehype-diagram-blocks";
 import { mdxComponents } from "@/components/content/mdx-components";
 import {
   MANIFEST,
@@ -14,6 +16,10 @@ import {
   getAdjacentChapters,
   type ChapterEntry,
 } from "./manifest";
+
+/** Chapters need both enough sections AND enough content to warrant pagination */
+const MIN_H2_COUNT = 8;
+const MIN_LINE_COUNT = 550;
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 
@@ -69,6 +75,7 @@ export async function getChapter(slug: string) {
             },
           ],
           rehypeAriaBoxes,
+          rehypeSections,
           rehypeSlug,
           [
             rehypeAutolinkHeadings,
@@ -81,16 +88,21 @@ export async function getChapter(slug: string) {
               keepBackground: true,
             },
           ],
+          rehypeDiagramBlocks,
         ],
       },
     },
   });
 
   const adjacent = getAdjacentChapters(slug);
+  const h2Matches = processed.match(/^## /gm);
+  const h2Count = h2Matches ? h2Matches.length : 0;
+  const lineCount = processed.split("\n").length;
 
   return {
     entry,
     content,
+    hasSections: h2Count >= MIN_H2_COUNT && lineCount >= MIN_LINE_COUNT,
     prev: adjacent.prev,
     next: adjacent.next,
   };

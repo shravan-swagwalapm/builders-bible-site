@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getChapterBySlug } from "@/lib/content/manifest";
 import { ChapterEndMarker } from "@/components/chapter-end-marker";
+import { SectionPaginator } from "@/components/section-paginator";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -38,7 +39,7 @@ export default async function ChapterPage({ params }: PageProps) {
 
   if (!chapter) notFound();
 
-  const { entry, content, prev, next } = chapter;
+  const { entry, content, hasSections, prev, next } = chapter;
 
   return (
     <article className="max-w-[72ch] mx-auto px-6 py-14 sm:py-20">
@@ -47,8 +48,14 @@ export default async function ChapterPage({ params }: PageProps) {
         <span className="chapter-number">{entry.chapterNumber}</span>
       )}
 
-      {/* MDX content */}
-      <div className="prose-bb">{content}</div>
+      {/* MDX content — paginated for long chapters */}
+      {hasSections ? (
+        <SectionPaginator>
+          <div className="prose-bb">{content}</div>
+        </SectionPaginator>
+      ) : (
+        <div className="prose-bb">{content}</div>
+      )}
 
       {/* Mark-as-read sentinel */}
       <ChapterEndMarker slug={slug} />
