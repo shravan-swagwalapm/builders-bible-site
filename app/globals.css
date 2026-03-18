@@ -226,3 +226,121 @@ body {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
+
+/* ── ARIA Boxes ──────────────────────────────── */
+
+.aria-box {
+  border-left: 3px solid;
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 24px 0;
+}
+
+.aria-label {
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.aria-analogy {
+  border-color: var(--aria-amber);
+  background: var(--aria-amber-bg);
+}
+.aria-analogy .aria-label { color: var(--aria-amber); }
+
+.aria-reallife {
+  border-color: var(--aria-blue);
+  background: var(--aria-blue-bg);
+}
+.aria-reallife .aria-label { color: var(--aria-blue); }
+
+.aria-intuition {
+  border-color: var(--aria-violet);
+  background: var(--aria-violet-bg);
+}
+.aria-intuition .aria-label { color: var(--aria-violet); }
+
+.aria-exercise {
+  border-color: var(--aria-green);
+  background: var(--aria-green-bg);
+}
+.aria-exercise .aria-label { color: var(--aria-green); }
+
+.aria-callout {
+  border-color: var(--aria-slate);
+  background: var(--aria-slate-bg);
+}
+.aria-callout .aria-label { color: var(--aria-slate); }
+
+/* ── Chapter content styling ─────────────────── */
+
+.chapter-number {
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Part intro styling */
+.part-title {
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Callout boxes (used directly in HTML) */
+.callout {
+  background: var(--aria-slate-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 24px 0;
+}
+
+/* Mermaid diagrams */
+.mermaid {
+  background: var(--elevation-1);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 24px 0;
+  overflow-x: auto;
+}
+
+/* Code blocks (rehype-pretty-code) */
+[data-rehype-pretty-code-figure] pre {
+  border-radius: 8px;
+  padding: 16px;
+  margin: 24px 0;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+[data-rehype-pretty-code-figure] code {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+[data-rehype-pretty-code-figure] [data-line] {
+  padding: 0 16px;
+}
+
+/* Anchor links on headings */
+.anchor {
+  text-decoration: none;
+  color: inherit;
+}
+.anchor:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 4px;
+}

@@ -1,0 +1,96 @@
+import { notFound } from "next/navigation";
+import { getChapter, getAllChapterSlugs } from "@/lib/content/parser";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import type { Metadata } from "next";
+import { getChapterBySlug } from "@/lib/content/manifest";
+
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  const slugs = getAllChapterSlugs();
+  return slugs.map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const entry = getChapterBySlug(slug);
+  if (!entry) return {};
+
+  const title = entry.chapterNumber
+    ? `${entry.chapterNumber}: ${entry.title}`
+    : entry.title;
+
+  return {
+    title: `${title} — The Builder's Bible`,
+    description: `Read ${title} from The Builder's Bible — free, open-source guide to building AI-powered products.`,
+  };
+}
+
+export default async function ChapterPage({ params }: PageProps) {
+  const { slug } = await params;
+  const chapter = await getChapter(slug);
+
+  if (!chapter) notFound();
+
+  const { entry, content, prev, next } = chapter;
+
+  return (
+    <article className="max-w-[72ch] mx-auto px-6 py-12 sm:py-16">
+      {/* Chapter header */}
+      {entry.chapterNumber && (
+        <span className="chapter-number">{entry.chapterNumber}</span>
+      )}
+
+      {/* MDX content */}
+      <div className="prose-bb">{content}</div>
+
+      {/* Chapter navigation */}
+      <nav className="flex items-stretch gap-4 mt-16 pt-8 border-t border-[var(--border)]">
+        {prev ? (
+          <Link
+            href={`/chapter/${prev.slug}`}
+            className="flex-1 group flex items-center gap-3 p-4 rounded-lg border border-[var(--border)] hover:border-[var(--accent)]/40 transition-colors"
+          >
+            <ChevronLeft className="w-5 h-5 text-[var(--muted-foreground)] group-hover:text-[var(--accent)] transition-colors shrink-0" />
+            <div className="min-w-0">
+              <div className="text-xs text-[var(--muted-foreground)]">
+                Previous
+              </div>
+              <div className="text-sm font-medium truncate">
+                {prev.chapterNumber ? `${prev.chapterNumber}: ` : ""}
+                {prev.title}
+              </div>
+            </div>
+          </Link>
+        ) : (
+          <div className="flex-1" />
+        )}
+
+        {next ? (
+          <Link
+            href={`/chapter/${next.slug}`}
+            className="flex-1 group flex items-center justify-end gap-3 p-4 rounded-lg border border-[var(--border)] hover:border-[var(--accent)]/40 transition-colors text-right"
+          >
+            <div className="min-w-0">
+              <div className="text-xs text-[var(--muted-foreground)]">
+                Next
+              </div>
+              <div className="text-sm font-medium truncate">
+                {next.chapterNumber ? `${next.chapterNumber}: ` : ""}
+                {next.title}
+              </div>
+            </div>
+            <ChevronRight className="w-5 h-5 text-[var(--muted-foreground)] group-hover:text-[var(--accent)] transition-colors shrink-0" />
+          </Link>
+        ) : (
+          <div className="flex-1" />
+        )}
+      </nav>
+    </article>
+  );
+}
