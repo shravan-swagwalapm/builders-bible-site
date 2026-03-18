@@ -193,6 +193,13 @@ body {
   z-index: 9999;
 }
 
+/* ── Path cards — per-card accent glow on hover ── */
+.path-card:hover {
+  border-color: color-mix(in oklch, var(--card-accent) 40%, transparent);
+  box-shadow: 0 4px 24px -4px color-mix(in oklch, var(--card-accent) 15%, transparent),
+              0 0 0 1px color-mix(in oklch, var(--card-accent) 8%, transparent);
+}
+
 /* ── Scrollbar ───────────────────────────────── */
 
 ::-webkit-scrollbar {
